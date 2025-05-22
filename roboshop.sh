@@ -2,7 +2,7 @@
 
 AMI_ID="ami-09c813fb71547fc4f"
 SG_ID="sg-098c3eca35649f2c5" # replace with your SG_ID
-INSTANCES=("mongodb" "redis" "mysql" "rabbitmq" "catalaogue" "user" "cart" "shipping"
+INSTANCE=("mongodb" "redis" "mysql" "rabbitmq" "catalaogue" "user" "cart" "shipping"
 "payment" "dispatch" "frontend")
 ZONE_ID="Z0509728XFPLN8X44IK2"
 DOMAIN_NAME="daws84.space"
