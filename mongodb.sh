@@ -10,7 +10,7 @@ SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
 LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log"
 
 mkdir -p $LOGS_FOLDER
-echo "Script started exectining at: $(date)" | tee -a $LOG_FILE
+echo "Script started executing at: $(date)" | tee -a $LOG_FILE
 
 # check the user has root privileges or not
 if [ $USERID -ne 0 ]
@@ -23,7 +23,7 @@ fi
 
 # validate function takes input as exit status, what command they tried to install
 VALIDATE(){
-    if [ $? -eq 0 ]
+    if [ $1 -eq 0 ]
     then 
         echo -e "$2 is ... $G success $N" | tee -a $LOG_FILE
     else
