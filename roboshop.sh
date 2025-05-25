@@ -21,7 +21,7 @@ do
     --hosted-zone-id $ZONE_ID \
     --change-batch '
     {
-        "Comment": "Creating or updating record set for cognito endpoint"
+        "Comment": "Creating or updating record sets for cognito endpoint"
         ,"Changes": [{
         "Action"              : "CREATE"
         ,"ResourceRecordSet"  : {
