@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 
 START_TIME=$(date +%s)
 USERID=$(id -u)
@@ -50,7 +50,7 @@ else
 fi
 
 mkdir -p /app 
-VALIDATE $? "Creting app directory"
+VALIDATE $? "Creating app directory"
 
 curl -o /tmp/shipping.zip https://roboshop-artifacts.s3.amazonaws.com/shipping-v3.zip &>>$LOG_FILE
 VALIDATE $? "Downloading shipping"
@@ -80,10 +80,16 @@ VALIDATE $? "starting shipping"
 dnf install mysql -y &>>$LOG_FILE
 VALIDATE $? "install mysql"
 
-mysql -h mysql.daws84.space -uroot -p$MYSQL_ROOT_PASSWORD < /app/db/schema.sql &>>$LOG_FILE
-mysql -h mysql.daws84.space -uroot -p$MYSQL_ROOT_PASSWORD < /app/db/app-user.sql &>>$LOG_FILE
-mysql -h mysql.daws84.space -uroot -p$MYSQL_ROOT_PASSWORD < /app/db/master-data.sql &>>$LOG_FILE
-VALIDATE $? "Loading data into my sql"
+mysql -h mysql.daws84.space -u root -p$MYSQL_ROOT_PASSWORD -e 'use cities' &>>$LOG_FILE
+if [ $? -ne 0 ]
+then
+    mysql -h mysql.daws84.space -uroot -p$MYSQL_ROOT_PASSWORD < /app/db/schema.sql &>>$LOG_FILE
+    mysql -h mysql.daws84.space -uroot -p$MYSQL_ROOT_PASSWORD < /app/db/app-user.sql &>>$LOG_FILE
+    mysql -h mysql.daws84.space -uroot -p$MYSQL_ROOT_PASSWORD < /app/db/master-data.sql &>>$LOG_FILE
+    VALIDATE $? "Loading data into mysql"
+else
+    echo -e "Data is already loaded into MySQL ... $Y SKIPPING $N"
+fi
 
 systemctl restart shipping &>>$LOG_FILE
 VALIDATE $? "Restart  shipping"
@@ -91,4 +97,4 @@ VALIDATE $? "Restart  shipping"
 END_TIME=$(date +%s)
 TOTAL_TIME=$(( $END_TIME - $START_TIME ))
 
-echo -e "script execution completed successfully, $Y time taken: $TOTAL_TIME seconds $N | tee -a $LOG_FILE"
+echo -e "script execution completed successfully, $Y time taken: $TOTAL_TIME seconds $N" | tee -a $LOG_FILE
