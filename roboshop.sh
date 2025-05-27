@@ -25,7 +25,7 @@ do
     {
         "Comment": "Creating or updating record sets for cognito endpoint"
         ,"Changes": [{
-        "Action"              : "CREATE"
+        "Action"              : "UPSERT"
         ,"ResourceRecordSet"  : {
             "Name"              : "'$DOMAIN_NAME'"
             ,"Type"             : "A"
