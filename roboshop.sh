@@ -8,7 +8,7 @@ DOMAIN_NAME="daws84.space" # replace with your DOMAIN Name
 
 #for instance in ${INSTANCES[@]}
 
-for instance in ${INSTANCES[@]}
+for instance in ${INSTANCE[@]}
 do  
     INSTANCE_ID=$(aws ec2 run-instances --image-id ami-09c813fb71547fc4f --instance-type t2.micro --security-group-ids sg-051f07331519e47f6 --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$instance}]" --query "Instances[0].InstanceId" --output text)
     if [ $instance != "frontend" ]
@@ -20,4 +20,22 @@ do
      #   RECORD_NAME="$DOMAIN_NAME"
     fi
     echo "$instance IP address: $IP"
+
+    aws route53 change-resource-record-sets \
+    --hosted-zone-id $ZONE_ID \
+    --change-batch '
+    {
+        "Comment": "Creating or updating record sets for cognito endpoint"
+        ,"Changes": [{
+        "Action"              : "UPSERT"
+        ,"ResourceRecordSet"  : {
+            "Name"              : "'$instance'.'$DOMAIN_NAME"
+            ,"Type"             : "A"
+            ,"TTL"              : 1
+            ,"ResourceRecords"  : [{
+                "Value"         : "'$IP'"
+            }]
+        }
+        }]
+    }'
 done
