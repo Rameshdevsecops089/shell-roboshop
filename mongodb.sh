@@ -15,10 +15,10 @@ echo "Script started executing at: $(date)" | tee -a $LOG_FILE
 # check the user has root privileges or not
 if [ $USERID -ne 0 ]
 then
-    echo -e "$R Error:: please run this script with root access $N" | tee -a $LOG_FILE
+    echo -e "$R Error:: please run this script with root access now $N" | tee -a $LOG_FILE
     exit 1 #give other than 0 upto 127
 else
-    echo "you are running with root access" | tee -a $LOG_FILE
+    echo "you are running with root access now" | tee -a $LOG_FILE
 fi
 
 # validate function takes input as exit status, what command they tried to install
