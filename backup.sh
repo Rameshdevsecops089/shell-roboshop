@@ -51,7 +51,7 @@ then
   echo -e "$R Source Directory $SOURCE_DIR does not exist. please check $N"
   exit 1
 fi
-'
+
 if [ ! -d "$DEST_DIR" ] 
 then
   echo -e "$R Destination Directory $DEST_DIR does not exist. please check $N"
@@ -66,5 +66,5 @@ then
 else
     echo -e "No log files older then 14 days ... $Y SKIPPING $N"
 fi
-'
+
 
