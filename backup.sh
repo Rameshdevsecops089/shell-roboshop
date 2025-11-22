@@ -46,9 +46,16 @@ then
     USAGE  
 fi
 
-if [! - $source_DIR]]
+if [ ! -d "$SOURCE_DIR" ] 
 then
-    echo -e $source does nt exits
+  echo -e "$R $SOURCE_DIR does not exist. please check $N"
+  exit 1
+fi
+
+if [ ! -d "$DEST_DIR" ] 
+then
+  echo -e "$R $DEST_DIR does not exist. please check $N"
+  exit 1
 fi
 
 
