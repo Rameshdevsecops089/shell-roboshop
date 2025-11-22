@@ -54,7 +54,7 @@ fi
 
 if [ ! -d "$DEST_DIR" ] 
 then
-  echo -e "$R Destination Directory$DEST_DIR does not exist. please check $N"
+  echo -e "$R Destination Directory $DEST_DIR does not exist. please check $N"
   exit 1
 fi
 
@@ -64,7 +64,7 @@ if [ ! -z $FILES ]
 then
     echo "files found"
 else
-    echo "There are No log files older then 14 days ... $Y SKIPPING $N"
+    echo -e "No log files older then 14 days ... $Y SKIPPING $N"
 fi
 
 
