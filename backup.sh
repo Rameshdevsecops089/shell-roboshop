@@ -34,18 +34,21 @@ check_root(){
     fi
 }
 
+check_root
 mkdir -p $LOGS_FOLDER
-
 
 USAGE(){
     echo -e "$R USAGE:: $N sh 20-backup.sh <source-dir> <destination-dir> <days(optional)>"
 }
 
-
-
 if [ $# -lt 2 ]
 then
     USAGE  
+fi
+
+if [! - $source_DIR]]
+then
+    echo -e $source does nt exits
 fi
 
 
